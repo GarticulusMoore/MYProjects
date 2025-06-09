@@ -1,0 +1,17 @@
+# When started
+turn_right(90)           # Initial right turn
+move_pen("down")         # Lower the pen to start drawing
+
+drive_forward(300)       # Drive forward 300 mm
+turn_right(90)
+
+drive_forward(300)       # Drive forward 300 mm
+turn_right(90)
+
+drive_forward(450)       # Drive forward 450 mm
+turn_right(90)
+
+drive_forward(700)       # Drive forward 700 mm
+turn_right(90)
+
+drive_forward(450)       # Drive forward 450 mm
