@@ -1,0 +1,177 @@
+
+#-------------Setup----------------
+
+import Ed
+
+Ed.EdisonVersion = Ed.V2
+Ed.DistanceUnits = Ed.CM
+Ed.Tempo = Ed.TEMPO_MEDIUM
+
+#--------Your code below-----------
+
+Ed.LineTrackerLed(Ed.ON)
+
+while True:
+	if Ed.ReadLineState()==Ed.LINE_ON_WHITE:
+		Ed.Drive(Ed.FORWARD_RIGHT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+	else:
+		Ed.Drive(Ed.FORWARD_LEFT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+		
+	#turn on obstacle detection
+Ed.ObstacleDetectionBeam(Ed.ON)
+#set up variables
+SideTurn = 0
+obstacle = 0
+
+#loop forever
+while True:
+	#start Edison driving, without a duration, so Edison is moving while checking for obstacles
+	Ed.Drive(Ed.FORWARD, Ed.SPEED_5, Ed.DISTANCE_UNLIMITED)
+	#read obstacle detection state into a variable
+	obstacle = Ed.ReadObstacleDetection()
+	#check if any obstacle has been detected
+	if obstacle>Ed.OBSTACLE_NONE:
+		#turn on both LEDs and back up
+		Ed.LeftLed(Ed.ON)
+		Ed.RightLed(Ed.ON)
+		Ed.PlayBeep()
+		Ed.Drive(Ed.BACKWARD, Ed.SPEED_5, 3)
+		#look at where the obstacle is and turn away from it (if obstacle ahead turn a random direction)
+		if obstacle==Ed.OBSTACLE_LEFT:
+			Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_5, 90)
+		elif obstacle==Ed.OBSTACLE_RIGHT:
+			Ed.Drive(Ed.SPIN_LEFT, Ed.SPEED_5, 90)
+		elif obstacle==Ed.OBSTACLE_AHEAD:
+			if SideTurn ==1:
+				Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_5, 90)
+			else:
+				Ed.Drive(Ed.SPIN_LEFT, Ed.SPEED_5, 90)
+	#after the obstacle has been avoided turn the LEDs off
+	Ed.LeftLed(Ed.OFF)
+	Ed.RightLed(Ed.OFF)
+	#change the direction variable, when no obstacle is being detected, this value changes rapidly, giving a sudo random direction when used
+	if SideTurn==1:
+		SideTurn=0
+	else:
+		SideTurn=1
+
+
+
+
+
+
+
+
+
+
+
+#-------------Setup----------------
+
+import Ed
+
+Ed.EdisonVersion = Ed.V2
+Ed.DistanceUnits = Ed.CM
+Ed.Tempo = Ed.TEMPO_MEDIUM
+
+#--------Your code below-----------
+
+# Initialize components
+Ed.LineTrackerLed(Ed.ON)
+Ed.ObstacleDetectionBeam(Ed.ON)
+
+# Set up variables
+SideTurn = 0
+obstacle = 0
+
+# Main loop
+while True:
+    # Check for obstacles
+    obstacle = Ed.ReadObstacleDetection()
+
+    if obstacle > Ed.OBSTACLE_NONE:
+        # Obstacle detected, handle avoidance
+        Ed.LeftLed(Ed.ON)
+        Ed.RightLed(Ed.ON)
+        Ed.PlayBeep()
+        Ed.Drive(Ed.BACKWARD, Ed.SPEED_5, 3)
+
+        # Determine direction to avoid the obstacle
+        if obstacle == Ed.OBSTACLE_AHEAD:
+            Ed.Drive(Ed.SPIN_LEFT, Ed.SPEED_5, 90)
+        elif obstacle == Ed.OBSTACLE_AHEAD:
+            if SideTurn == 1:
+                Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_5, 90)
+            else:
+                Ed.Drive(Ed.SPIN_LEFT, Ed.SPEED_5, 90)
+        
+        # Turn off LEDs after avoiding the obstacle
+        Ed.LeftLed(Ed.OFF)
+        Ed.RightLed(Ed.OFF)
+
+        # Update SideTurn for pseudo-random turns
+        SideTurn = 1 - SideTurn
+
+    else:
+        # No obstacle detected, perform line tracking
+        if Ed.ReadLineState() == Ed.LINE_ON_WHITE:
+            Ed.Drive(Ed.FORWARD_RIGHT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+        else:
+            Ed.Drive(Ed.FORWARD_LEFT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+
+
+
+
+
+
+
+
+
+
+#-------------Setup----------------
+
+import Ed
+
+Ed.EdisonVersion = Ed.V2
+Ed.DistanceUnits = Ed.CM
+Ed.Tempo = Ed.TEMPO_MEDIUM
+
+#--------Your code below-----------
+
+# Initialize components
+Ed.LineTrackerLed(Ed.ON)
+Ed.ObstacleDetectionBeam(Ed.ON)
+
+# Main loop
+while True:
+    # Check for obstacles
+    obstacle = Ed.ReadObstacleDetection()
+
+    if obstacle > Ed.OBSTACLE_NONE:
+        # Obstacle detected, perform the maneuver
+        Ed.LeftLed(Ed.ON)
+        Ed.RightLed(Ed.ON)
+        Ed.PlayBeep()
+        Ed.Drive(Ed.BACKWARD, Ed.SPEED_5, 3)  # Backup
+
+        # Turn left and move forward
+        Ed.Drive(Ed.SPIN_LEFT, Ed.SPEED_5, 45)
+        Ed.Drive(Ed.FORWARD, Ed.SPEED_5, 16)
+
+        # Turn right and move forward
+        Ed.Drive(Ed.SPIN_RIGHT, Ed.SPEED_5, 45)
+        Ed.Drive(Ed.FORWARD, Ed.SPEED_5, 20)
+
+        # Turn off LEDs after maneuver
+        Ed.LeftLed(Ed.OFF)
+        Ed.RightLed(Ed.OFF)
+
+    else:
+        # No obstacle detected, perform line tracking
+        if Ed.ReadLineState() == Ed.LINE_ON_WHITE:
+            Ed.Drive(Ed.FORWARD_RIGHT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+        else:
+            Ed.Drive(Ed.FORWARD_LEFT, Ed.SPEED_1, Ed.DISTANCE_UNLIMITED)
+
+
+
+
