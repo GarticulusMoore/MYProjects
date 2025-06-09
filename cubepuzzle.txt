@@ -1,0 +1,4 @@
+n = int(input("Enter grid size (n x n): "))
+lines = n + 1
+rectangles = (lines * (lines - 1) // 2) ** 2
+print("The number of rectangles is", rectangles)
