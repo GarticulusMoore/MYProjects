@@ -1,0 +1,11 @@
+# When started
+drive_forward(200)      # Drive forward 200 mm
+turn_right(90)          # Turn right 90 degrees
+
+move_pen("down")        # Lower the pen
+set_pen_color("black")  # Set pen color to black
+
+# Repeat 4 times
+for _ in range(4):
+    drive_forward(600)  # Drive forward 600 mm
+    turn_right(90)      # Turn right 90 degrees
